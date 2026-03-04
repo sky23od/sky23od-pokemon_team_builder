@@ -1,9 +1,9 @@
 let currentPokemon = null;
 
-// Cache (to reduce API calls)
+// Cache to reduce API calls
 const cache = {};
 
-// DOM
+// DOM elements
 const input = document.getElementById("pokemonInput");
 const findBtn = document.getElementById("findBtn");
 const addBtn = document.getElementById("addBtn");
@@ -20,40 +20,47 @@ const move4 = document.getElementById("move4");
 
 const teamDiv = document.getElementById("team");
 
-// Load existing team on page load
+// Load saved team when page loads
 renderTeam();
 
+// Connect buttons to functions
 findBtn.addEventListener("click", findPokemon);
 addBtn.addEventListener("click", addToTeam);
 clearBtn.addEventListener("click", clearTeam);
 
+
+// Fetch pokemon from API
 async function findPokemon() {
+
   const query = input.value.trim().toLowerCase();
 
   if (!query) {
-    statusText.textContent = "Please enter a Pokemon name or ID.";
+    statusText.textContent = "Enter a Pokemon name or ID.";
     return;
   }
 
   statusText.textContent = "Loading...";
 
-  // try local cache first
-  let data = cache[query] || getLocalCache(query);
+  let data = cache[query];
 
   try {
-    // if not cached, fetch from API
+
+    // Fetch if not cached
     if (!data) {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
-      if (!response.ok) throw new Error("Pokemon not found.");
-      data = await response.json();
 
+      if (!response.ok) {
+        statusText.textContent = "Pokemon not found.";
+        return;
+      }
+
+      data = await response.json();
       cache[query] = data;
-      saveLocalCache(query, data);
     }
 
     currentPokemon = data;
 
-    // show image
+    // Show image
     const img =
       data.sprites.other["official-artwork"].front_default ||
       data.sprites.front_default;
@@ -61,17 +68,15 @@ async function findPokemon() {
     pokemonImage.src = img;
     pokemonImage.alt = data.name;
 
-    // audio (cry)
+    // Load cry audio
     const cry = data.cries?.latest || data.cries?.legacy || "";
+
     if (cry) {
       pokemonCry.src = cry;
       pokemonCry.load();
-    } else {
-      pokemonCry.removeAttribute("src");
-      pokemonCry.load();
     }
 
-    // moves
+    // Load moves into dropdowns
     const moves = data.moves.map(m => m.move.name);
 
     fillDropdown(move1, moves);
@@ -79,25 +84,36 @@ async function findPokemon() {
     fillDropdown(move3, moves);
     fillDropdown(move4, moves);
 
-    statusText.textContent = "Loaded!";
-  } catch (err) {
-    statusText.textContent = err.message;
+    statusText.textContent = "Pokemon loaded!";
+
+  } catch (error) {
+    statusText.textContent = "Error loading Pokemon.";
   }
 }
 
+
+// Fill dropdown menus
 function fillDropdown(dropdown, moves) {
+
   dropdown.innerHTML = "";
 
-  // put first ~50 moves so dropdowns aren’t insanely long
-  moves.slice(0, 50).forEach(m => {
+  moves.slice(0,50).forEach(move => {
+
     const option = document.createElement("option");
-    option.value = m;
-    option.textContent = m;
+
+    option.value = move;
+    option.textContent = move;
+
     dropdown.appendChild(option);
+
   });
+
 }
 
+
+// Add pokemon to team
 function addToTeam() {
+
   if (!currentPokemon) {
     statusText.textContent = "Find a Pokemon first.";
     return;
@@ -106,11 +122,11 @@ function addToTeam() {
   const team = getTeam();
 
   if (team.length >= 6) {
-    statusText.textContent = "Team full (max 6). Clear team to add more.";
+    statusText.textContent = "Team is full (max 6).";
     return;
   }
 
-  const selectedMoves = [
+  const moves = [
     move1.value,
     move2.value,
     move3.value,
@@ -124,67 +140,73 @@ function addToTeam() {
   const member = {
     name: currentPokemon.name,
     image: img,
-    moves: selectedMoves
+    moves: moves
   };
 
   team.push(member);
+
   localStorage.setItem("team", JSON.stringify(team));
 
   renderTeam();
+
   statusText.textContent = `${currentPokemon.name} added to team!`;
 }
 
+
+// Display team on page
 function renderTeam() {
+
   const team = getTeam();
+
   teamDiv.innerHTML = "";
 
-  team.forEach(p => {
+  team.forEach(pokemon => {
+
     const card = document.createElement("div");
     card.className = "teamCard";
 
     card.innerHTML = `
       <div class="teamRow">
-        <img src="${p.image}" width="90" />
+        <img src="${pokemon.image}" width="90">
         <div>
-          <strong>${p.name}</strong>
+          <strong>${pokemon.name}</strong>
           <ul>
-            <li>${p.moves[0]}</li>
-            <li>${p.moves[1]}</li>
-            <li>${p.moves[2]}</li>
-            <li>${p.moves[3]}</li>
+            <li>${pokemon.moves[0]}</li>
+            <li>${pokemon.moves[1]}</li>
+            <li>${pokemon.moves[2]}</li>
+            <li>${pokemon.moves[3]}</li>
           </ul>
         </div>
       </div>
     `;
 
     teamDiv.appendChild(card);
+
   });
+
 }
 
+
+// Clear team
 function clearTeam() {
+
   localStorage.removeItem("team");
+
   renderTeam();
+
   statusText.textContent = "Team cleared.";
+
 }
 
+
+// Get team from storage
 function getTeam() {
+
   try {
     return JSON.parse(localStorage.getItem("team")) || [];
-  } catch {
+  }
+  catch {
     return [];
   }
-}
 
-// localStorage caching for API
-function saveLocalCache(key, data) {
-  localStorage.setItem("pokeCache_" + key, JSON.stringify(data));
-}
-
-function getLocalCache(key) {
-  try {
-    const item = localStorage.getItem("pokeCache_" + key);
-    return item ? JSON.parse(item) : null;
-  } catch {
-    return null;
-  }
 }
