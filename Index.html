@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pokemon Team Builder</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>Pokemon Team Builder</h1>
+
+    <section class="card">
+      <label for="pokeInput"><strong>Name or ID</strong></label>
+      <div class="row">
+        <input id="pokeInput" type="text" placeholder="e.g., pikachu or 25" />
+        <button id="findBtn" type="button">Find</button>
+      </div>
+
+      <div id="status" class="status" aria-live="polite"></div>
+
+      <div id="result" class="result hidden">
+        <h2 id="pokeName"></h2>
+
+        <img id="pokeImg" alt="" class="poke-img" />
+
+        <div class="audio-row">
+          <audio id="pokeAudio" controls preload="none"></audio>
+        </div>
+
+        <div class="moves">
+          <div class="move-col">
+            <label for="move1">Move 1</label>
+            <select id="move1"></select>
+          </div>
+          <div class="move-col">
+            <label for="move2">Move 2</label>
+            <select id="move2"></select>
+          </div>
+          <div class="move-col">
+            <label for="move3">Move 3</label>
+            <select id="move3"></select>
+          </div>
+          <div class="move-col">
+            <label for="move4">Move 4</label>
+            <select id="move4"></select>
+          </div>
+        </div>
+
+        <button id="addBtn" type="button">Add to Team</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="team-header">
+        <h2>Your Team (max 6)</h2>
+        <button id="clearBtn" type="button" class="secondary">Clear Team</button>
+      </div>
+      <div id="team" class="team"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
