@@ -1,60 +1,69 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pokemon Team Builder</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pokemon Team Builder</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <h1>Pokemon Team Builder</h1>
+<h1>Pokemon Team Builder</h1>
 
-  <div class="box">
-    <div class="top">
-      <div class="label">Name or ID</div>
-      <input id="pokemonInput" placeholder="e.g., pikachu or 25" />
-      <button id="findBtn">Find</button>
-    </div>
+<div class="box">
 
-    <div id="status"></div>
+<div class="top">
+<label>Name or ID</label>
+<input id="pokemonInput" placeholder="e.g., pikachu or 25">
+<button id="findBtn">Find</button>
+</div>
 
-    <div class="center">
-      <img id="pokemonImage" alt="" />
-    </div>
+<div id="status"></div>
 
-    <div class="audio">
-      <audio id="pokemonCry" controls></audio>
-    </div>
+<div class="center">
+<img id="pokemonImage">
+</div>
 
-    <div class="moves">
-      <div>
-        <label>Move 1</label>
-        <select id="move1"></select>
-      </div>
-      <div>
-        <label>Move 2</label>
-        <select id="move2"></select>
-      </div>
-      <div>
-        <label>Move 3</label>
-        <select id="move3"></select>
-      </div>
-      <div>
-        <label>Move 4</label>
-        <select id="move4"></select>
-      </div>
-    </div>
+<div class="audio">
+<audio id="pokemonCry" controls></audio>
+</div>
 
-    <button id="addBtn">Add to Team</button>
-  </div>
+<div class="moves">
 
-  <h2>Your Team (max 6)</h2>
-  <button id="clearBtn">Clear Team</button>
+<div>
+<label>Move 1</label>
+<select id="move1"></select>
+</div>
 
-  <div id="team"></div>
+<div>
+<label>Move 2</label>
+<select id="move2"></select>
+</div>
 
-  <script src="script.js"></script>
+<div>
+<label>Move 3</label>
+<select id="move3"></select>
+</div>
+
+<div>
+<label>Move 4</label>
+<select id="move4"></select>
+</div>
+
+</div>
+
+<button id="addBtn">Add to Team</button>
+
+</div>
+
+<h2>Your Team (max 6)</h2>
+
+<button id="clearBtn">Clear Team</button>
+
+<div id="team"></div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
