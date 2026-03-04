@@ -1,123 +1,132 @@
 body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  margin: 0;
-  padding: 24px;
-  background: #f6f7fb;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 40px;
+  background-color: white;
 }
 
-.wrap {
-  max-width: 900px;
-  margin: 0 auto;
+h1 {
+  margin-bottom: 20px;
 }
 
-.card {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 16px;
-  margin: 16px 0;
+h2 {
+  margin-top: 30px;
 }
 
-.row {
+/* main pokemon display box */
+
+.box {
+  border: 6px solid goldenrod;
+  border-radius: 10px;
+  padding: 20px;
+  width: 520px;
+  background-color: #eaf6ff;
+}
+
+/* top input area */
+
+.top {
   display: flex;
-  gap: 10px;
-  margin-top: 8px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
-input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+.top input {
+  padding: 6px;
 }
 
-button {
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid #222;
-  background: #222;
-  color: #fff;
-  cursor: pointer;
+.top button {
+  padding: 6px 10px;
 }
 
-button.secondary {
-  background: #fff;
-  color: #222;
-}
+/* pokemon image */
 
-.status {
+.center {
+  display: flex;
+  justify-content: center;
   margin-top: 10px;
-  min-height: 22px;
-  color: #333;
 }
 
-.result {
-  margin-top: 12px;
-}
-
-.hidden { display: none; }
-
-.poke-img {
-  width: 220px;
-  height: 220px;
+#pokemonImage {
+  width: 200px;
+  height: 200px;
   object-fit: contain;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  background: #fafafa;
 }
 
-.audio-row {
-  margin: 10px 0;
+/* audio player */
+
+.audio {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
+
+/* dropdown moves */
 
 .moves {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-  margin: 10px 0 14px;
+  margin-top: 15px;
 }
 
-.move-col select {
+.moves label {
+  display: block;
+  font-weight: bold;
+}
+
+.moves select {
   width: 100%;
-  padding: 8px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  padding: 5px;
 }
 
-.team-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+/* add button */
+
+#addBtn {
+  margin-top: 15px;
+  padding: 8px 14px;
 }
 
-.team {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 12px;
+/* team section */
+
+#team {
   margin-top: 10px;
 }
 
-.team-card {
-  border: 1px solid #eee;
-  border-radius: 12px;
-  padding: 12px;
-  background: #fff;
+.teamCard {
+  border: 2px solid black;
+  padding: 10px;
+  margin-top: 10px;
+  width: 520px;
+  background-color: white;
 }
 
-.team-top {
+/* team row */
+
+.teamRow {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 12px;
 }
 
-.team-top img {
-  width: 72px;
-  height: 72px;
+.teamRow img {
+  width: 90px;
+  height: 90px;
   object-fit: contain;
 }
 
-.team-card ul {
-  margin: 8px 0 0;
+.teamRow ul {
+  margin: 0;
   padding-left: 18px;
+}
+
+/* buttons */
+
+button {
+  cursor: pointer;
+}
+
+#clearBtn {
+  margin-bottom: 10px;
+  padding: 6px 12px;
 }
